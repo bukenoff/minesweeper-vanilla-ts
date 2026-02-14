@@ -168,7 +168,7 @@ export class Model {
   ) {
     const cell = this.board[row][col];
 
-    if (cell.is_open) {
+    if (cell.is_open || !this.flags_left) {
       return;
     }
 
