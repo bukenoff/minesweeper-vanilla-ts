@@ -38,7 +38,7 @@ export class View {
 
     const restart_button = document.createElement("restart-button");
     this.restart_element = restart_button;
-    restart_button.setAttribute("game_state", "victory");
+    restart_button.setAttribute("game_state", "pending");
     this.controls_element.appendChild(restart_button);
 
     this.container.appendChild(this.controls_element);

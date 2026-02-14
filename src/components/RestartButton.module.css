@@ -2,4 +2,24 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  height: 16px;
+  width: 16px;
+  padding: 0;
+  transform: rotate(90deg);
+}
+
+.pending::after {
+  content: ":|";
+}
+
+.loss::after {
+  content: ":(";
+}
+
+.active::after {
+  content: ":)";
+}
+
+.victory::after {
+  content: ":D";
 }

@@ -1,10 +1,12 @@
 import styles from "./RestartButton.module.css";
 
+console.log("styles", styles);
+
 const ICONS_BY_STATE: Record<string, string> = {
-  pending: "<i class='fa-regular fa-lg fa-face-smile'></i>",
-  active: "<i class='fa-regular fa-lg fa-face-smile'></i>",
-  victory: "<i class='fa-regular fa-lg fa-face-grin'></i>",
-  loss: "<i class='fa-regular fa-lg fa-face-frown'></i>",
+  pending: styles.pending,
+  active: styles.active,
+  victory: styles.victory,
+  loss: styles.loss,
 };
 
 class RestartButton extends HTMLElement {
@@ -40,7 +42,9 @@ class RestartButton extends HTMLElement {
   render() {
     const state = this.getAttribute("game_state") ?? "pending";
 
-    this.innerHTML = `<button class="${styles.container}">${ICONS_BY_STATE[state]}</button>`;
+    console.log("state is", state);
+
+    this.innerHTML = `<button class="${styles.container} ${ICONS_BY_STATE[state]}"></button>`;
   }
 }
 
