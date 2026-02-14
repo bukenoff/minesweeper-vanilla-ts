@@ -1,15 +1,14 @@
-import { Cell, Minesweeper } from "../minesweeper";
+import { Model, Cell } from "../model";
 
 describe("Minesweeper model", () => {
   it("should be allright", () => {
-    expect(Minesweeper.Model).toBeDefined();
+    expect(Model).toBeDefined();
   });
 
   it("generate a set of random positions", () => {
-    const model = new Minesweeper.Model(9, 9, 9);
+    const model = new Model(9, 9, 9);
 
     const mines_positions = model.generateMinesPositions(9, { row: 1, col: 3 });
-    console.log("mines_positions", mines_positions);
     expect(mines_positions.size).toBe(9);
   });
 });
