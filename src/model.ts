@@ -5,6 +5,40 @@ type Coordinates = {
   col: number;
 };
 
+class Cursor {
+  row = 0;
+  col = 0;
+  max_row = 0;
+  max_col = 0;
+
+  constructor(row: number, col: number, max_row: number, max_col: number) {
+    this.row = row;
+    this.col = col;
+    this.max_row = max_row;
+    this.max_col = max_col;
+  }
+
+  move(direction: "up" | "right" | "down" | "left") {
+    switch (direction) {
+      case "up":
+        this.row = Math.max(this.row - 1, 0);
+        break;
+      case "right":
+        this.col = Math.min(this.col + 1, this.max_col);
+        break;
+      case "down":
+        this.row = Math.min(this.row + 1, this.max_row);
+        break;
+      case "left":
+        this.col = Math.max(this.col - 1, 0);
+        break;
+
+      default:
+        throw new Error("Unsupported direction");
+    }
+  }
+}
+
 export class Cell {
   row: number;
   col: number;
@@ -45,6 +79,8 @@ export class Model {
   state: GameState = "pending";
   cells_open = 0;
   flags_left = 0;
+  // @ts-ignore
+  cursor: Cursor;
 
   constructor(rows: number, cols: number, mines: number) {
     this.init(rows, cols, mines);
@@ -60,6 +96,7 @@ export class Model {
     console.log(this.board);
     this.state = "pending";
     this.cells_open = 0;
+    this.cursor = new Cursor(0, 0, this.rows - 1, this.cols - 1);
   }
 
   get totalCells() {

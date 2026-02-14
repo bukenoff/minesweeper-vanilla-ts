@@ -1,46 +1,11 @@
 import { COLORS } from "./const";
 import { type GameState, type Board, Cell } from "./model";
 
-class Cursor {
-  row = 0;
-  col = 0;
-  max_row = 0;
-  max_col = 0;
-
-  constructor(row: number, col: number, max_row: number, max_col: number) {
-    this.row = row;
-    this.col = col;
-    this.max_row = max_row;
-    this.max_col = max_col;
-  }
-
-  move(direction: "up" | "right" | "down" | "left") {
-    switch (direction) {
-      case "up":
-        this.row = Math.max(this.row - 1, 0);
-        break;
-      case "right":
-        this.col = Math.min(this.col + 1, this.max_col);
-        break;
-      case "down":
-        this.row = Math.min(this.row + 1, this.max_row);
-        break;
-      case "left":
-        this.col = Math.max(this.col - 1, 0);
-        break;
-
-      default:
-        throw new Error("Unsupported direction");
-    }
-  }
-}
-
 export class View {
   container: HTMLDivElement | null = null;
   board_element: HTMLDivElement | null = null;
   controls_element: HTMLDivElement | null = null;
   restart_element: HTMLElement | null = null;
-  cursor: Cursor;
   cell_colors = [
     COLORS.BLUE,
     COLORS.MUD_GREEN,
@@ -61,7 +26,6 @@ export class View {
     }
 
     // TODO: remove hardcoded value, pass actual values from model
-    this.cursor = new Cursor(0, 0, 8, 8);
 
     this.container = document.createElement("div");
     this.container.style.display = "inline-block";
@@ -181,5 +145,29 @@ export class View {
 
       this.board_element?.appendChild(rowView);
     }
+  }
+
+  addCursor(row: number, col: number, board: Board) {
+    const max_col = board[0].length;
+    const cell_id = Cell.encodeHashKey(row, col, max_col);
+    const cell_element = this.cells_by_id.get(cell_id);
+
+    if (!cell_element) {
+      throw new Error("could not locate cell");
+    }
+
+    cell_element.classList.add("cell-cursor");
+  }
+
+  removeCursor(row: number, col: number, board: Board) {
+    const max_col = board[0].length;
+    const cell_id = Cell.encodeHashKey(row, col, max_col);
+    const cell_element = this.cells_by_id.get(cell_id);
+
+    if (!cell_element) {
+      throw new Error("could not locate cell");
+    }
+
+    cell_element.classList.remove("cell-cursor");
   }
 }

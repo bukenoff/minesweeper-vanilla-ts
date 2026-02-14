@@ -1,4 +1,4 @@
-import { Model } from "./model";
+import { Model, Cell } from "./model";
 import { View } from "./view";
 
 export class Controller {
@@ -51,28 +51,45 @@ export class Controller {
         this.model.flagCell(row, col, this.view.flagCell.bind(this.view));
       });
     }
+
     document.addEventListener("keydown", (evt) => {
+      const { row, col } = this.model.cursor;
+      const { board } = this.model;
+
       switch (evt.key) {
         case "ArrowUp":
         case "k":
-          this.view.cursor.move("up");
+          this.view.removeCursor(row, col, board);
+          this.model.cursor.move("up");
           break;
         case "ArrowRight":
         case "l":
-          this.view.cursor.move("up");
+          this.view.removeCursor(row, col, board);
+          this.model.cursor.move("right");
           break;
         case "ArrowDown":
         case "j":
-          this.view.cursor.move("down");
+          this.view.removeCursor(row, col, board);
+          this.model.cursor.move("down");
           break;
         case "ArrowLeft":
         case "h":
-          this.view.cursor.move("left");
+          this.view.removeCursor(row, col, board);
+          this.model.cursor.move("left");
           break;
-
+        case "o":
+        case "Enter":
+          this.model.openCell(row, col, this.view.openCell.bind(this.view));
+          break;
+        case "f":
+        case " ":
+          this.model.flagCell(row, col, this.view.flagCell.bind(this.view));
+          break;
         default:
           break;
       }
+
+      this.view.addCursor(this.model.cursor.row, this.model.cursor.col, board);
     });
   }
 }
