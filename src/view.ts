@@ -1,11 +1,46 @@
 import { COLORS } from "./const";
 import { type GameState, type Board, Cell } from "./model";
 
+class Cursor {
+  row = 0;
+  col = 0;
+  max_row = 0;
+  max_col = 0;
+
+  constructor(row: number, col: number, max_row: number, max_col: number) {
+    this.row = row;
+    this.col = col;
+    this.max_row = max_row;
+    this.max_col = max_col;
+  }
+
+  move(direction: "up" | "right" | "down" | "left") {
+    switch (direction) {
+      case "up":
+        this.row = Math.max(this.row - 1, 0);
+        break;
+      case "right":
+        this.col = Math.min(this.col + 1, this.max_col);
+        break;
+      case "down":
+        this.row = Math.min(this.row + 1, this.max_row);
+        break;
+      case "left":
+        this.col = Math.max(this.col - 1, 0);
+        break;
+
+      default:
+        throw new Error("Unsupported direction");
+    }
+  }
+}
+
 export class View {
   container: HTMLDivElement | null = null;
   board_element: HTMLDivElement | null = null;
   controls_element: HTMLDivElement | null = null;
   restart_element: HTMLElement | null = null;
+  cursor: Cursor;
   cell_colors = [
     COLORS.BLUE,
     COLORS.MUD_GREEN,
@@ -25,6 +60,9 @@ export class View {
       throw new Error("Could not locate dialog");
     }
 
+    // TODO: remove hardcoded value, pass actual values from model
+    this.cursor = new Cursor(0, 0, 8, 8);
+
     this.container = document.createElement("div");
     this.container.style.display = "inline-block";
 
@@ -33,11 +71,13 @@ export class View {
     this.controls_element.classList.add("controls");
 
     const flags_counter = document.createElement("flags-counter");
+    // TODO: remove hardcoded value, pass actual values from model
     flags_counter.setAttribute("flags_left", "9");
     this.controls_element.appendChild(flags_counter);
 
     const restart_button = document.createElement("restart-button");
     this.restart_element = restart_button;
+    // TODO: remove hardcoded value, pass actual values from model
     restart_button.setAttribute("game_state", "pending");
     this.controls_element.appendChild(restart_button);
 
@@ -49,7 +89,6 @@ export class View {
 
   flush() {
     this.cells_by_id.forEach((cell_element) => {
-      console.log("cell element", cell_element);
       cell_element.classList.value = "cell";
       cell_element.removeAttribute("disabled");
       cell_element.textContent = "";

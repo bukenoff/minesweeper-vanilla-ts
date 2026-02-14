@@ -71,6 +71,10 @@ body {
   background-image: url("./assets/flag.svg");
 }
 
+.cell-cursor {
+  background-color: pink;
+}
+
 .controls {
   display: flex;
   justify-content: space-between;

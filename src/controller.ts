@@ -51,5 +51,28 @@ export class Controller {
         this.model.flagCell(row, col, this.view.flagCell.bind(this.view));
       });
     }
+    document.addEventListener("keydown", (evt) => {
+      switch (evt.key) {
+        case "ArrowUp":
+        case "k":
+          this.view.cursor.move("up");
+          break;
+        case "ArrowRight":
+        case "l":
+          this.view.cursor.move("up");
+          break;
+        case "ArrowDown":
+        case "j":
+          this.view.cursor.move("down");
+          break;
+        case "ArrowLeft":
+        case "h":
+          this.view.cursor.move("left");
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 }
