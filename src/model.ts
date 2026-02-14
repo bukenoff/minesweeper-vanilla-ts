@@ -62,6 +62,10 @@ export class Model {
     this.cells_open = 0;
   }
 
+  get totalCells() {
+    return this.rows * this.cols;
+  }
+
   flush() {
     this.init(this.rows, this.cols, this.mines);
   }
@@ -198,6 +202,9 @@ export class Model {
     if (cell.is_open || cell.is_flagged) {
       return;
     }
+    if (this.state === "loss" || this.state === "victory") {
+      return;
+    }
     // Start game if not started yet
     if (this.state === "pending") {
       this.plantMines({ row, col });
@@ -212,6 +219,11 @@ export class Model {
       updateView(this.board, row, col, this.state);
       return;
     } else {
+      updateView(this.board, row, col, this.state);
+    }
+
+    if (this.cells_open === this.totalCells - this.mines) {
+      this.state = "victory";
       updateView(this.board, row, col, this.state);
     }
 

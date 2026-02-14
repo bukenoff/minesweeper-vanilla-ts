@@ -30,7 +30,7 @@ export class Controller {
     for (let cell of cells) {
       cell.addEventListener("click", () => {
         if (this.model.state === "loss" || this.model.state === "victory") {
-          alert("you lost, start again");
+          alert("you either lost or won, start again");
           return;
         }
         const row = Number(cell.dataset.row);
