@@ -1,0 +1,44 @@
+#minesweeper-window {
+  margin: 0 auto;
+}
+
+.mines-row {
+  display: flex;
+}
+
+.mines-cell {
+  cursor: pointer;
+  background-color: #bdbdbd;
+  border-bottom: solid 3px #7b7b7b;
+  border-right: solid 3px #7b7b7b;
+  border-top: solid 3px #fff;
+  border-left: solid 3px #fff;
+  font-weight: bold;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mines-cell[disabled] {
+  user-select: none;
+}
+
+.mines-cell-open {
+  border: solid 1px #7b7b7b;
+}
+
+.mines-cell:active {
+  transform: scale(0.9);
+}
+
+.mines-cell-exploded {
+  color: var(--red-munsell);
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0 0.5rem 0;
+}
