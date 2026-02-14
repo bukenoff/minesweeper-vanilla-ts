@@ -32,11 +32,11 @@ body {
   margin: 0 auto;
 }
 
-.mines-row {
+.row {
   display: flex;
 }
 
-.mines-cell {
+.cell {
   cursor: pointer;
   background-color: #bdbdbd;
   border-bottom: solid 3px #7b7b7b;
@@ -51,23 +51,23 @@ body {
   justify-content: center;
 }
 
-.mines-cell[disabled] {
+.cell[disabled] {
   user-select: none;
 }
 
-.mines-cell-open {
+.cell-open {
   border: solid 1px #7b7b7b;
 }
 
-.mines-cell:active {
+.cell:active {
   transform: scale(0.9);
 }
 
-.mines-cell-exploded {
+.cell-exploded {
   background-image: url("./assets/mine.svg");
 }
 
-.mines-cell-flagged {
+.cell-flagged {
   background-image: url("./assets/flag.svg");
 }
 

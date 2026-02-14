@@ -24,7 +24,7 @@ export class Controller {
     restart_button?.addEventListener("restart", () => this.restart());
 
     const cells = document.getElementsByClassName(
-      "mines-cell",
+      "cell",
     ) as HTMLCollectionOf<HTMLButtonElement>;
 
     for (let cell of cells) {

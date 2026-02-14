@@ -50,7 +50,7 @@ export class View {
   flush() {
     this.cells_by_id.forEach((cell_element) => {
       console.log("cell element", cell_element);
-      cell_element.classList.value = "mines-cell";
+      cell_element.classList.value = "cell";
       cell_element.removeAttribute("disabled");
       cell_element.textContent = "";
     });
@@ -70,11 +70,11 @@ export class View {
 
     this.restart_element?.setAttribute("game_state", game_state);
 
-    cell_element.classList.add("mines-cell-open");
+    cell_element.classList.add("cell-open");
     cell_element.setAttribute("disabled", "true");
 
     if (cell.has_mine) {
-      cell_element.classList.add("mines-cell-exploded");
+      cell_element.classList.add("cell-exploded");
       return;
     }
 
@@ -102,7 +102,7 @@ export class View {
     const flags_counter = document.querySelector("flags-counter");
 
     if (is_flagged) {
-      cell_element.classList.toggle("mines-cell-flagged");
+      cell_element.classList.toggle("cell-flagged");
     } else {
       cell_element.innerHTML = "";
     }
@@ -125,12 +125,12 @@ export class View {
 
     for (let i = 0; i < board.length; i++) {
       const rowView = document.createElement("div");
-      rowView.classList.add("mines-row");
+      rowView.classList.add("row");
       for (let j = 0; j < board[i].length; j++) {
         const id = Cell.encodeHashKey(i, j, board[i].length);
         const cellView = document.createElement("button");
 
-        cellView.classList.add("mines-cell");
+        cellView.classList.add("cell");
         cellView.setAttribute("data-row", `${i}`);
         cellView.setAttribute("data-col", `${j}`);
         cellView.setAttribute("id", `${id}`);
