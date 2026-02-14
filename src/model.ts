@@ -5,7 +5,7 @@ type Coordinates = {
   col: number;
 };
 
-class Cursor {
+export class Cursor {
   row = 0;
   col = 0;
   max_row = 0;
