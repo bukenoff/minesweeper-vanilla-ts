@@ -22,9 +22,9 @@ class FlagsCounter extends HTMLElement {
     const count = this.getAttribute("flags_left") ?? "0";
 
     this.innerHTML = `
-      <span class="${styles.container}">
-        <i class="fa-solid fa-flag fa-xs" style="color: #0d21a1ff"></i>: ${count}
-      </span>
+      <div class="${styles.container}">
+        <div class="${styles.flags_counter}"></div>: ${count}
+      </div >
     `;
   }
 }

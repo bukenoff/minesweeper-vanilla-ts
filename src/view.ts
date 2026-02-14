@@ -102,9 +102,9 @@ export class View {
     const flags_counter = document.querySelector("flags-counter");
 
     if (is_flagged) {
-      cell_element.classList.toggle("cell-flagged");
+      cell_element.classList.add("cell-flagged");
     } else {
-      cell_element.innerHTML = "";
+      cell_element.classList.remove("cell-flagged");
     }
 
     if (flags_counter) {
