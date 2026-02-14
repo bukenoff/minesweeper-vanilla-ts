@@ -75,7 +75,6 @@ export class View {
 
     if (cell.has_mine) {
       cell_element.classList.add("mines-cell-exploded");
-      cell_element.innerHTML = `<i class="fa-solid fa-bomb fa-xs"></i>`;
       return;
     }
 
@@ -103,7 +102,7 @@ export class View {
     const flags_counter = document.querySelector("flags-counter");
 
     if (is_flagged) {
-      cell_element.innerHTML = `<i class="fa-solid fa-flag fa-xs" style="color: #0d21a1ff"></i>`;
+      cell_element.classList.toggle("mines-cell-flagged");
     } else {
       cell_element.innerHTML = "";
     }

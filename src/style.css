@@ -64,7 +64,11 @@ body {
 }
 
 .mines-cell-exploded {
-  color: var(--red-munsell);
+  background-image: url("./assets/mine.svg");
+}
+
+.mines-cell-flagged {
+  background-image: url("./assets/flag.svg");
 }
 
 .controls {
