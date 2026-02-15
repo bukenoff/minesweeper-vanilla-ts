@@ -1,5 +1,5 @@
 .container {
-  border: none;
+  border: 1px solid white;
   background-color: transparent;
   cursor: pointer;
   height: 16px;
