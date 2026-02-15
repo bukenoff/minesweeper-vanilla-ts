@@ -13,6 +13,7 @@ export class Controller {
       this.model.board,
       this.model.flags_left,
       this.model.state,
+      this.model.difficulty,
     );
     this.setupListeners();
   }

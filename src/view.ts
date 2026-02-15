@@ -1,5 +1,5 @@
 import { COLORS } from "./const";
-import { type GameState, type Board, Cell } from "./model";
+import { type GameState, type Board, Cell, type Difficulty } from "./model";
 
 export class View {
   container: HTMLDivElement | null = null;
@@ -34,6 +34,9 @@ export class View {
 
     const flags_counter = document.createElement("flags-counter");
     this.controls_element.appendChild(flags_counter);
+
+    const difficulty_select = document.createElement("difficulty-select");
+    this.controls_element.appendChild(difficulty_select);
 
     const restart_button = document.createElement("restart-button");
     this.restart_element = restart_button;
@@ -109,7 +112,12 @@ export class View {
     }
   }
 
-  drawBoard(board: Board | null, flags_left: number, game_state: GameState) {
+  drawBoard(
+    board: Board | null,
+    flags_left: number,
+    game_state: GameState,
+    difficulty: Difficulty,
+  ) {
     if (!board) {
       throw new Error("no board provided");
     }
@@ -120,10 +128,16 @@ export class View {
       flags_counter.setAttribute("flags_left", `${flags_left}`);
     }
 
-    const restart_button = document.createElement("restart-button");
+    const restart_button = document.querySelector("restart-button");
 
     if (restart_button) {
       restart_button.setAttribute("game_state", game_state);
+    }
+
+    const difficulty_select = document.querySelector("difficulty-select");
+
+    if (difficulty_select) {
+      difficulty_select.setAttribute("difficulty", difficulty);
     }
 
     for (let i = 0; i < board.length; i++) {
