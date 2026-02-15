@@ -25,8 +25,6 @@ export class View {
       throw new Error("Could not locate dialog");
     }
 
-    // TODO: remove hardcoded value, pass actual values from model
-
     this.container = document.createElement("div");
     this.container.style.display = "inline-block";
 
@@ -35,14 +33,10 @@ export class View {
     this.controls_element.classList.add("controls");
 
     const flags_counter = document.createElement("flags-counter");
-    // TODO: remove hardcoded value, pass actual values from model
-    flags_counter.setAttribute("flags_left", "9");
     this.controls_element.appendChild(flags_counter);
 
     const restart_button = document.createElement("restart-button");
     this.restart_element = restart_button;
-    // TODO: remove hardcoded value, pass actual values from model
-    restart_button.setAttribute("game_state", "pending");
     this.controls_element.appendChild(restart_button);
 
     this.container.appendChild(this.controls_element);
@@ -115,7 +109,7 @@ export class View {
     }
   }
 
-  drawBoard(board: Board | null, flags_left: number) {
+  drawBoard(board: Board | null, flags_left: number, game_state: GameState) {
     if (!board) {
       throw new Error("no board provided");
     }
@@ -124,6 +118,12 @@ export class View {
 
     if (flags_counter) {
       flags_counter.setAttribute("flags_left", `${flags_left}`);
+    }
+
+    const restart_button = document.createElement("restart-button");
+
+    if (restart_button) {
+      restart_button.setAttribute("game_state", game_state);
     }
 
     for (let i = 0; i < board.length; i++) {

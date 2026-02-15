@@ -1,4 +1,4 @@
-import { Model, Cell } from "./model";
+import { Model } from "./model";
 import { View } from "./view";
 
 export class Controller {
@@ -9,7 +9,11 @@ export class Controller {
     this.model = model;
     this.view = view;
 
-    this.view.drawBoard(this.model.board, this.model.flags_left);
+    this.view.drawBoard(
+      this.model.board,
+      this.model.flags_left,
+      this.model.state,
+    );
     this.setupListeners();
   }
 
