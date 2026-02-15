@@ -6,4 +6,4 @@ import { View } from "./view.ts";
 document.querySelector<HTMLDivElement>("#app")!.innerHTML =
   `<div id="minesweeper-window"></div>`;
 
-new Controller(new Model(9, 9, 9), new View());
+new Controller(new Model("easy"), new View());

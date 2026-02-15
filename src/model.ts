@@ -67,6 +67,8 @@ export class Cell {
   }
 }
 
+export type Difficulty = "easy" | "normal" | "hard";
+
 export type Board = Cell[][];
 
 export type GameState = "pending" | "active" | "victory" | "loss";
@@ -77,23 +79,43 @@ export class Model {
   mines = 0;
   board: Board = [];
   state: GameState = "pending";
+  difficulty: Difficulty = "easy";
   cells_open = 0;
   flags_left = 0;
   // @ts-ignore
   cursor: Cursor;
 
-  constructor(rows: number, cols: number, mines: number) {
-    this.init(rows, cols, mines);
+  constructor(difficulty: Difficulty) {
+    this.init(difficulty);
   }
 
-  init(rows: number, cols: number, mines: number) {
-    this.rows = rows;
-    this.cols = cols;
-    this.mines = mines;
-    this.flags_left = mines;
+  init(difficulty: Difficulty) {
+    this.difficulty = difficulty;
 
-    this.board = this.generateEmptyBoard(rows, cols);
-    console.log(this.board);
+    switch (difficulty) {
+      case "easy":
+        this.rows = 9;
+        this.cols = 9;
+        this.mines = 9;
+        break;
+      case "normal":
+        this.rows = 16;
+        this.cols = 16;
+        this.mines = 40;
+        break;
+      case "hard":
+        this.rows = 16;
+        this.cols = 30;
+        this.mines = 99;
+        break;
+
+      default:
+        throw new Error("Unsupported difficulty level");
+    }
+
+    this.flags_left = this.mines;
+
+    this.board = this.generateEmptyBoard(this.rows, this.cols);
     this.state = "pending";
     this.cells_open = 0;
     this.cursor = new Cursor(0, 0, this.rows - 1, this.cols - 1);
@@ -104,7 +126,7 @@ export class Model {
   }
 
   flush() {
-    this.init(this.rows, this.cols, this.mines);
+    this.init(this.difficulty);
   }
 
   generateEmptyBoard(rows: number, cols: number) {
