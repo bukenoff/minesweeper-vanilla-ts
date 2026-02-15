@@ -1,7 +1,5 @@
 import styles from "./RestartButton.module.css";
 
-console.log("styles", styles);
-
 const ICONS_BY_STATE: Record<string, string> = {
   pending: styles.pending,
   active: styles.active,
@@ -41,8 +39,6 @@ class RestartButton extends HTMLElement {
 
   render() {
     const state = this.getAttribute("game_state") ?? "pending";
-
-    console.log("state is", state);
 
     this.innerHTML = `<button class="${styles.container} ${ICONS_BY_STATE[state]}"></button>`;
   }
